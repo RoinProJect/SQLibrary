@@ -24,7 +24,8 @@ public enum DBMS {
 	MySQL("[MySQL] "), 
 	Oracle("[Oracle] "), 
 	PostgreSQL("[PostgreSQL] "), 
-	SQLite("[SQLite] ");
+	SQLite("[SQLite] "),
+	MariaDB("[MariaDB] ");
 	
 	private String prefix;
 	

@@ -11,107 +11,107 @@ import java.util.logging.Logger;
  * 
  * @author PatPeter
  */
-public class MySQL extends HostnameDatabase {
+public class MariaDB extends HostnameDatabase {
 	public enum Statements implements StatementEnum {
 		// Data manipulation statements
-		SELECT("SELECT"), 
-		INSERT("INSERT"), 
-		UPDATE("UPDATE"), 
-		DELETE("DELETE"), 
-		DO("DO"), 
-		REPLACE("REPLACE"), 
-		LOAD("LOAD"), 
-		HANDLER("HANDLER"), 
-		CALL("CALL"), 
-		
+		SELECT("SELECT"),
+		INSERT("INSERT"),
+		UPDATE("UPDATE"),
+		DELETE("DELETE"),
+		DO("DO"),
+		REPLACE("REPLACE"),
+		LOAD("LOAD"),
+		HANDLER("HANDLER"),
+		CALL("CALL"),
+
 		// Data definition statements
-		CREATE("CREATE"), 
-		ALTER("ALTER"), 
-		DROP("DROP"), 
-		TRUNCATE("TRUNCATE"), 
-		RENAME("RENAME"),  
-		
+		CREATE("CREATE"),
+		ALTER("ALTER"),
+		DROP("DROP"),
+		TRUNCATE("TRUNCATE"),
+		RENAME("RENAME"),
+
 		// Transactional and Locking Statements
-		START("START"), 
-		COMMIT("COMMIT"), 
+		START("START"),
+		COMMIT("COMMIT"),
 		SAVEPOINT("SAVEPOINT"), // http://dev.mysql.com/doc/refman/5.6/en/implicit-commit.html#savepoint
 		ROLLBACK("ROLLBACK"), // ROLLBACK TO SAVEPOINT
 		RELEASE("RELEASE"), // RELEASE SAVEPOINT
 		LOCK("LOCK"), // http://dev.mysql.com/doc/refman/5.6/en/lock-tables.html
-		UNLOCK("UNLOCK"), 
-		
+		UNLOCK("UNLOCK"),
+
 		// Prepared Statements
-		PREPARE("PREPARE"), 
-		EXECUTE("EXECUTE"), 
-		DEALLOCATE("DEALLOCATE"), 
-		
+		PREPARE("PREPARE"),
+		EXECUTE("EXECUTE"),
+		DEALLOCATE("DEALLOCATE"),
+
 		// Database Administration
-		SET("SET"), 
-		SHOW("SHOW"), 
-		
+		SET("SET"),
+		SHOW("SHOW"),
+
 		// Utility Statements
-		DESCRIBE("DESCRIBE"), 
-		EXPLAIN("EXPLAIN"), 
-		HELP("HELP"), 
+		DESCRIBE("DESCRIBE"),
+		EXPLAIN("EXPLAIN"),
+		HELP("HELP"),
 		USE("USE");
-		
+
 		private String string;
-		
+
 		private Statements(String string) {
 			this.string = string;
 		}
-		
+
 		public String toString() {
 			return string;
 		}
 	}
-	
+
 	@Deprecated
-	public MySQL(Logger log,
-				 String prefix,
-				 String hostname,
-				 String port,
-				 String database,
-				 String username,
-				 String password) {
+	public MariaDB(Logger log,
+                   String prefix,
+                   String hostname,
+                   String port,
+                   String database,
+                   String username,
+                   String password) {
 		super(log,prefix, DBMS.MySQL, hostname, Integer.parseInt(port), database, username, password);
 	}
-	
-	public MySQL(Logger log,
-				 String prefix,
-				 String hostname,
-				 int port,
-				 String database,
-				 String username,
-				 String password) {
+
+	public MariaDB(Logger log,
+                   String prefix,
+                   String hostname,
+                   int port,
+                   String database,
+                   String username,
+                   String password) {
 		super(log, prefix, DBMS.MySQL, hostname, port, database, username, password);
 	}
-	
-	public MySQL(Logger log,
-				 String prefix,
-				 String database,
-				 String username,
-				 String password) {
+
+	public MariaDB(Logger log,
+                   String prefix,
+                   String database,
+                   String username,
+                   String password) {
 		super(log, prefix, DBMS.MySQL, "localhost", 3306, database, username, password);
 	}
-	
-	public MySQL(Logger log,
-				 String prefix,
-				 String database,
-				 String username) {
+
+	public MariaDB(Logger log,
+                   String prefix,
+                   String database,
+                   String username) {
 		super(log, prefix, DBMS.MySQL, "localhost", 3306, database, username, "");
 	}
-	
-	public MySQL(Logger log,
-				 String prefix,
-				 String database) {
+
+	public MariaDB(Logger log,
+                   String prefix,
+                   String database) {
 		super(log, prefix, DBMS.MySQL, "localhost", 3306, database, "", "");
 	}
 	
 	@Override
 	protected boolean initialize() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mariadb.jdbc.Driver");
 			return true;
 	    } catch (ClassNotFoundException e) {
 	    	this.warning("MySQL DataSource class missing: " + e.getMessage() + ".");
@@ -122,7 +122,7 @@ public class MySQL extends HostnameDatabase {
 	@Override
 	public boolean open() {
 		try {
-			String url = "jdbc:mysql://" + getHostname() + ":" + getPort() + "/" + getDatabase();
+			String url = "jdbc:mariadb://" + getHostname() + ":" + getPort() + "/" + getDatabase();
 			if (initialize()) {
 				/*om.mysql.jdbc.jdbc2.optional.MysqlDataSource ds = new com.mysql.jdbc.jdbc2.optional.MysqlDataSource();
 				

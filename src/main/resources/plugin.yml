@@ -1,5 +1,5 @@
-name: ${project.artifactId}
-version: ${project.version}
+name: SQLibrary
+version: ${version}
 description: A facade similar to Vault that abstracts the coder from the JDBC and each database driver's implementation.
-author: PatPeter
+author: PatPeter, Yellowstrawberrys
 main: lib.PatPeter.SQLibrary.SQLibrary
